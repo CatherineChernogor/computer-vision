@@ -1,19 +1,8 @@
-
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.ndimage import morphology
 from skimage.measure import label, regionprops
-from skimage.filters import try_all_threshold, threshold_triangle
-
-
-import scipy
-import matplotlib
-import skimage
-
-print(np.__version__)
-print(matplotlib.__version__)
-print(scipy.__version__)
-print(skimage.__version__)
+from skimage.filters import threshold_triangle
 
 
 def togray(image):
@@ -35,8 +24,6 @@ def circularity(region, label=1):
 def get_pencils(filename):
     image = plt.imread(filename)
     gray = togray(image)
-    # plt.subplot(121)
-    # plt.imshow(gray, cmap="gray")
 
     thresh = threshold_triangle(gray)
     binary = binarisation(gray, 0, thresh)
@@ -58,19 +45,17 @@ def get_pencils(filename):
     labeled[labeled > 0] = 1
     labeled = label(labeled)
 
-    # plt.subplot(122)
-    # plt.imshow(labeled)
-    # print('total', np.max(labeled))
-
     i, count = 1, 0
     for region in regionprops(labeled):
         isCirc = circularity(region, i)
         if isCirc > 100 and region.area < 450000 and region.area > 300000:
-            # print(isCirc, region.area, region.perimeter)
             count += 1
         i += 1
     return count
 
 
+total = 0
 for i in range(1, 13):
-    print('img', i, get_pencils('img ('+str(i)+').jpg'))
+    total += get_pencils('hw4/img ('+str(i)+').jpg')
+    
+print('total:', total)
