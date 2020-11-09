@@ -2,11 +2,11 @@ import matplotlib.pyplot as plt
 from skimage.filters import sobel, threshold_isodata
 from skimage.morphology import binary_closing, binary_opening
 from skimage.measure import label, regionprops
-from skimage import color 
+from skimage import color
 import numpy as np
 
 
-image = plt.imread('ballss.png')
+image = plt.imread('lectures/src/ballss.png')
 # image = image[:, :, :-1]
 binary = image.copy()[:, :, 0]
 binary[binary > 0] = 1
@@ -14,7 +14,7 @@ binary[binary > 0] = 1
 image = color.rgb2hsv(image)[:, :, 0]
 
 labeled = label(binary)
-print('total=',np.max(labeled))
+print('total=', np.max(labeled))
 
 colors = []
 

@@ -5,10 +5,10 @@ from scipy.ndimage import morphology
 from skimage.measure import label, regionprops
 from skimage.filters import try_all_threshold, threshold_triangle
 
-image = plt.imread('src/alphabet.png')
-plt.figure(figsize=(12, 12))
-plt.imshow(image)
-plt.show()
+image = plt.imread('lectures/src/alphabet.png')
+# plt.figure(figsize=(12, 12))
+# plt.imshow(image)
+# plt.show()
 
 gray = np.sum(image, 2)
 # print(np.min(gray),np.max(gray))
@@ -18,9 +18,9 @@ gray[gray > 0] = 1
 
 labeled = label(gray)
 
-plt.figure(figsize=(25, 25))
-plt.imshow(labeled)
-plt.show()
+# plt.figure(figsize=(25, 25))
+# plt.imshow(labeled)
+# plt.show()
 print(np.max(labeled))
 
 regions = regionprops(labeled)
@@ -51,6 +51,21 @@ def has_bay(image):
 def count_bays(image):
     holes = ~image.copy()
     return np.max(label(holes))
+
+
+def show_symbol(SYM, regions):
+    a, b, c = 1, 9, 1
+    for region in regions:
+        symbol = recognize(region)
+        if c == 10:
+            c = 1
+            a += 1
+            plt.show()
+        if symbol == SYM:
+            plt.subplot(str(a)+str(b)+str(c))
+            plt.imshow(region.image)
+            c += 1
+    plt.show()
 
 
 def recognize(region):
@@ -94,3 +109,6 @@ for region in regions:
         d[symbol] = 1
     else:
         d[symbol] += 1
+print(d)
+
+show_symbol('8', regions)

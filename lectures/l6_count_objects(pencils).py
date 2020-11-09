@@ -18,7 +18,9 @@ def binarisation(image, limit_min, limit_max):
     return B
 
 
-image = plt.imread('img (8).jpg')
+filename = 'images/img (1).jpg'
+
+image = plt.imread(filename)
 plt.imshow(image)
 plt.show()
 
@@ -57,19 +59,6 @@ plt.imshow(labeled)
 plt.show()
 
 print(np.max(labeled))
-
-
-def hist(image):
-    H = np.zeros(256)
-    for i in range(image.shape[0]):
-        for j in range(image.shape[1]):
-            val = image[i, j]
-            H[val] += 1
-    return H
-
-
-H = hist(gray)
-plt.plot(H)
 
 tresh = threshold_triangle(gray)
 print(tresh)
