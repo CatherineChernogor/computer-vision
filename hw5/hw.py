@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.ndimage import morphology
 from skimage.measure import label, regionprops
-from skimage.filters import try_all_threshold, threshold_triangle
 
 
 def lakes(image):
