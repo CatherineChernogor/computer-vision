@@ -6,7 +6,9 @@ from skimage import color
 import numpy as np
 
 
-image = plt.imread('lectures/src/ballss.png')
+#image = plt.imread('lectures/src/ballss.png')
+image = plt.imread('hw6/balls_and_rects.png')
+
 # image = image[:, :, :-1]
 binary = image.copy()[:, :, 0]
 binary[binary > 0] = 1

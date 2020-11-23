@@ -41,21 +41,62 @@ def get_cnts(hsv, colorLower, colorUpper):
     return cnts
 
 
+colors = {
+    'blue': [[95, 100, 100], [110, 255, 255]],
+    'green': [[50, 0, 100], [90, 255, 255]],
+    'orange': [[10, 100, 100], [20, 255, 255]],
+
+}
+
+
+def get_coords(cnts):
+
+    
+    coords_x = []
+    if (len(cnts) > 0):
+
+        for cnt in cnts:
+            for c in cnt:
+                return c[0][0]
+    else:
+        return 0
+
+
 while cam.isOpened():
     ret, frame = cam.read()
 
     blurred = cv2.GaussianBlur(frame, (11, 11), 0)
     hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
 
-    cnts = get_cnts(hsv, np.array([95, 100, 100]), np.array([110,255,255]))
-    draw(cnts, frame)
+    cnts1 = get_cnts(hsv, np.array(
+        colors['blue'][0]), np.array(colors['blue'][1]))
+    draw(cnts1, frame)
+    cnts2 = get_cnts(hsv, np.array(
+        colors['green'][0]), np.array(colors['green'][1]))
+    draw(cnts2, frame)
+    cnts3 = get_cnts(hsv, np.array(
+        colors['orange'][0]), np.array(colors['orange'][1]))
+    draw(cnts3, frame)
 
-    # cv2.imshow('mask', mask)
+
+    ball_set = [
+        ('blue', get_coords(cnts1)),
+        ('green', get_coords(cnts2)),
+        ('orange', get_coords(cnts3)),
+    ]
+
+
+
+    ball_set.sort(key=lambda i: i[1])
+    for i, ball in enumerate(ball_set):
+        if ball[1]!=0:
+            cv2.putText(frame, f"{i}: {ball[0]}", (10, 30+20*i), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255))
+
+
     cv2.imshow('camera', frame)
 
     key = cv2.waitKey(1)
     if key == ord('q'):
         break
-
 cam.release()
 cv2.destroyAllWindows()

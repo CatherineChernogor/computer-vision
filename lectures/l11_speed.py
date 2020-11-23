@@ -21,7 +21,6 @@ cv2.createTrackbar('l', 'mask', 0, 255, set_lower)
 
 colorLower = np.array([0, 0, 0], dtype='uint8')
 colorUpper = np.array([255, 255, 255], dtype='uint8')
-  
 while cam.isOpened():
     ret, frame = cam.read()
 
