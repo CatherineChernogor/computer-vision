@@ -1,9 +1,9 @@
 import cv2
 import numpy as np
 
-cat = cv2.imread('lectures/src/cat.png')
+cat = cv2.imread('/src/cat.png')
 cat1 = cv2.cvtColor(cat, cv2.COLOR_BGR2GRAY)
-cat2 = cv2.imread('lectures/src/cat2.png', 0)
+cat2 = cv2.imread('/src/cat2.png', 0)
 
 
 diff = cv2.absdiff(cat1, cat2)

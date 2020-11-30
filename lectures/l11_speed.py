@@ -20,14 +20,14 @@ cv2.createTrackbar('u', 'mask', 0, 255, set_upper)
 cv2.createTrackbar('l', 'mask', 0, 255, set_lower)
 
 colorLower = np.array([0, 0, 0], dtype='uint8')
-colorUpper = np.array([255, 255, 255], dtype='uint8')
+colorUpper = np.array([255, 100, 255], dtype='uint8')
 while cam.isOpened():
     ret, frame = cam.read()
 
     blurred = cv2.GaussianBlur(frame, (11, 11), 0)
     hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
 
-    mask = cv2.inRange(hsv, colorLower, colorUpper)
+    mask = cv2.inRange(hsv, np.array([50, 0, 0], dtype='uint8'), np.array([80, 100, 255], dtype='uint8'))
     mask = cv2.erode(mask, None, iterations=2)
     mask = cv2.dilate(mask, None, iterations=2)
 
