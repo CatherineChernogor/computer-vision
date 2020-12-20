@@ -126,11 +126,11 @@ for region in regions:
     else:
         d[symbol] += 1
 
-# for key in d.keys():
-#     print(key, '\n')
-#     show_symbol(key, regions)
-
 for key in d.keys():
-    d[key] = d[key]/np.max(labeled)
+    print(key, '\n')
+    show_symbol(key, regions)
 
-print(d)
+# for key in d.keys():
+#     d[key] = d[key]/np.max(labeled)
+
+# print(d)

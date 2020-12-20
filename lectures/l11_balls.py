@@ -25,7 +25,7 @@ while cam.isOpened():
     measures.append(pxl_color)
     if len(measures) >= 10:
         bgr_color = np.uint8([[np.average(measures, 0)]])
-        hsv_color = cv2.cvtColor(bgr_color, cv2.COLOR_BGR2HSV)
+        hsv_color = cv2.cvtColor(bgr_color, cv2.COLOR_BGR2HLS)
         bgr_color = bgr_color[0][0]
         hsv_color = hsv_color[0][0]
         measures.clear()

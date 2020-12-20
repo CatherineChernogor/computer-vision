@@ -2,12 +2,16 @@ import matplotlib.pyplot as plt
 from skimage.filters import sobel, threshold_isodata
 from skimage.morphology import binary_closing, binary_opening
 from skimage.measure import label, regionprops
-image = plt.imread('lama-on-moon.png')[40:-40, 40:-20]
+image = plt.imread('lectures/src/lama-on-moon.png')[40:-40, 40:-20]
 
 image = image[:,:, 0]
 
 sobel_mask = sobel(image)
 tresh = threshold_isodata(sobel_mask)
+
+plt.imshow(image)
+print(sobel_mask.shape)
+plt.show()
 
 sobel_mask[sobel_mask < tresh] =0
 sobel_mask[sobel_mask>= tresh] = 1
