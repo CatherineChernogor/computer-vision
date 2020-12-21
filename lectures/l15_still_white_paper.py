@@ -72,7 +72,7 @@ while cam.isOpened():
     ret, frame = cam.read()
     converted = cv2.cvtColor(frame, cv2.COLOR_BGR2HLS)
     mask = cv2.inRange(converted, np.array(
-        [100, flimit, 0]), np.array([150, slimit, 255]))
+        [0, flimit, 0]), np.array([150, slimit, 255]))
 
     mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
     mask = cv2.GaussianBlur(mask, (5, 5), 0)
